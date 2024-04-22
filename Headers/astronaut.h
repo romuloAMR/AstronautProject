@@ -12,6 +12,7 @@ class Astronaut{
         int age;
         bool alive;
         bool free;
+        std::list<Spacecraft*> spacecrafts;
         
     public:
         Astronaut(std::string cpf, std::string name, int age);
@@ -22,12 +23,14 @@ class Astronaut{
         void setAge(int value);
         void setAlive(bool value);
         void setFree(bool value);
+        void addSpacecraft(Spacecraft &value);
 
         std::string getCPF();
         std::string getName();
         int getAge();
         bool isAlive();
         bool isFree();
+        std::list<Spacecraft*> listSpacecrafts();
 };
 
 #endif
