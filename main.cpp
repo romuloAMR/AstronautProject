@@ -9,8 +9,8 @@ short homeMenu(){
               << "| 5- End                       |\n"
               << "--------------------------------\n"
               <<std::endl;
-    std::cout << "Choese a option: " << std::endl;
-
+    std::cout << "Choise a option: ";
+    
     short option;
     std::cin >> option;
     switch (option){
@@ -36,7 +36,7 @@ short spacecraftMenu(){
               << "| 9- Exit                    |\n"
               << "------------------------------\n"
               << std::endl;
-    std::cout << "Choese a option: " << std::endl;
+    std::cout << "Choise a option: ";
 
     short option;
     std::cin >> option;
