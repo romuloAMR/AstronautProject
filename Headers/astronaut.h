@@ -1,9 +1,11 @@
 #ifndef ASTRONAUT_H
 #define ASTRONAUT_H
 
+#include <iostream>
 #include <string>
 #include <list>
-#include "spacecraft.h"
+
+class Spacecraft;
 
 class Astronaut{
     private:
@@ -31,6 +33,8 @@ class Astronaut{
         bool isAlive();
         bool isFree();
         std::list<Spacecraft*> listSpacecrafts();
+
+        friend std::ostream& operator<<(std::ostream& os, const Astronaut& astronaut);
 };
 
 #endif

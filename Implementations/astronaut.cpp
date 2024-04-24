@@ -50,3 +50,11 @@ bool Astronaut::isFree(){
 std::list<Spacecraft*> Astronaut::listSpacecrafts(){
     return spacecrafts;
 }
+
+//Overloading
+std::ostream& operator<<(std::ostream& os, const Astronaut& astronaut) {
+    os << "CPF: " << astronaut.cpf << std::endl;
+    os << "Name: " << astronaut.name << std::endl;
+    os << "Age: " << astronaut.age << std::endl;
+    return os;
+}
