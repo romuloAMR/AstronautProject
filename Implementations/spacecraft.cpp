@@ -1,5 +1,4 @@
 #include "../Headers/spacecraft.h"
-#include <iostream>
 
 int Spacecraft::quantity = 0;
 
