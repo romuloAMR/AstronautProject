@@ -17,8 +17,8 @@ class Spacecraft{
         Spacecraft();
         ~Spacecraft();
 
-        int getCode();
-        void showAstronauts();
+        int getCode() const;
+        
         bool isIntact();
         bool isWorking();
 
@@ -27,6 +27,8 @@ class Spacecraft{
         void removeAstronaut(Astronaut& value);
         void setIntact(bool value);
         void setWorking(bool value);
+
+        friend std::ostream& operator<<(std::ostream& os, const Spacecraft& spacecraft);
 };
 
 #endif

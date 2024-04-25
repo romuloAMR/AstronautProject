@@ -11,18 +11,8 @@ Spacecraft::Spacecraft(){
 Spacecraft::~Spacecraft(){}
 
 //Getters
-int Spacecraft::getCode(){
+int Spacecraft::getCode() const{
     return code;
-}
-void Spacecraft::showAstronauts(){
-    std::cout <<"(Spacecraft: " << getCode() << ") " << "Astronauts on board:" << std::endl;
-    if(astronauts.empty()){
-        std::cout << "\tEmpty List" <<std::endl;
-    } else {
-        for (std::map<std::string, Astronaut*>::iterator it = astronauts.begin(); it != astronauts.end(); ++it) {
-            std::cout << *(it->second) << std::endl;
-        }
-    }
 }
 bool Spacecraft::isIntact(){
     return intact;
@@ -46,4 +36,16 @@ void Spacecraft::setIntact(bool value){
 }
 void Spacecraft::setWorking(bool value){
     working = value;
+}
+
+std::ostream& operator<<(std::ostream& os, const Spacecraft& spacecraft) {
+    os <<"(Spacecraft: " << spacecraft.getCode() << ") " << "Astronauts on board:" << std::endl;
+    if(spacecraft.astronauts.empty()){
+        os << "Empty List" <<std::endl;
+    } else {
+        for (auto it = spacecraft.astronauts.begin(); it != spacecraft.astronauts.end(); ++it) {
+            os << *(it->second) << std::endl;
+        }
+    }
+    return os;
 }
