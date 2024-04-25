@@ -18,7 +18,7 @@ class Spacecraft{
         ~Spacecraft();
 
         int getCode() const;
-
+        bool astronautExist(std::string cpf);
         bool isIntact();
         bool isWorking();
 

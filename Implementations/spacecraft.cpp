@@ -14,6 +14,9 @@ Spacecraft::~Spacecraft(){}
 int Spacecraft::getCode() const{
     return code;
 }
+bool Spacecraft::astronautExist(std::string cpf){
+    return (astronauts.find(cpf) != astronauts.end());
+}
 bool Spacecraft::isIntact(){
     return intact;
 }
