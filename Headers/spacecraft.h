@@ -18,13 +18,13 @@ class Spacecraft{
         ~Spacecraft();
 
         int getCode() const;
-        
+
         bool isIntact();
         bool isWorking();
 
         void setCode(int value);
-        void addAstronaut(Astronaut& value);
-        void removeAstronaut(Astronaut& value);
+        void addAstronaut(Astronaut* &value);
+        void removeAstronaut(Astronaut* &value);
         void setIntact(bool value);
         void setWorking(bool value);
 

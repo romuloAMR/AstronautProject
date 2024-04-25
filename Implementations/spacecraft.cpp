@@ -25,11 +25,11 @@ bool Spacecraft::isWorking(){
 void Spacecraft::setCode(int value){
     code = value;
 }
-void Spacecraft::addAstronaut(Astronaut& value){
-    astronauts[value.getCPF()] = &value;
+void Spacecraft::addAstronaut(Astronaut* &value){
+    astronauts[value->getCPF()] = value;
 }
-void Spacecraft::removeAstronaut(Astronaut& value){
-    astronauts.erase(value.getCPF());
+void Spacecraft::removeAstronaut(Astronaut* &value){
+    astronauts.erase(value->getCPF());
 }
 void Spacecraft::setIntact(bool value){
     intact = value;
