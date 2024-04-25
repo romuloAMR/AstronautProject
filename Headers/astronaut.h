@@ -3,9 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include <list>
+#include <map>
 
-class Spacecraft;
+class Spacecraft{
+    public:
+        int getCode();
+};
 
 class Astronaut{
     private:
@@ -14,7 +17,7 @@ class Astronaut{
         int age;
         bool alive;
         bool free;
-        std::list<Spacecraft*> spacecrafts;
+        std::map<int, Spacecraft*> spacecrafts;
         
     public:
         Astronaut(std::string cpf, std::string name, int age);
@@ -33,7 +36,8 @@ class Astronaut{
         int getAge();
         bool isAlive();
         bool isFree();
-        std::list<Spacecraft*> listSpacecrafts();
+        bool spacecraftExist(int code);
+        std::map<int, Spacecraft*> listSpacecrafts();
 
         friend std::ostream& operator<<(std::ostream& os, const Astronaut& astronaut);
 };

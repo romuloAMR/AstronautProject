@@ -27,10 +27,10 @@ void Astronaut::setFree(bool value){
     free = value;
 }
 void Astronaut::addSpacecraft(Spacecraft* &value){
-    spacecrafts.push_back(value);
+    spacecrafts[value->getCode()] = value;
 }
 void Astronaut::removeSpacecraft(Spacecraft* &value){
-    spacecrafts.remove(value);
+    spacecrafts.erase(value->getCode());
 }
 
 
@@ -50,7 +50,10 @@ bool Astronaut::isAlive(){
 bool Astronaut::isFree(){
     return free;
 }
-std::list<Spacecraft*> Astronaut::listSpacecrafts(){
+bool Astronaut::spacecraftExist(int code){
+    return (spacecrafts.find(code) != spacecrafts.end());
+}
+std::map<int, Spacecraft*> Astronaut::listSpacecrafts(){
     return spacecrafts;
 }
 
