@@ -25,7 +25,8 @@ class Astronaut{
         void setAge(int value);
         void setAlive(bool value);
         void setFree(bool value);
-        void addSpacecraft(Spacecraft &value);
+        void addSpacecraft(Spacecraft* &value);
+        void removeSpacecraft(Spacecraft* &value);
 
         std::string getCPF();
         std::string getName();

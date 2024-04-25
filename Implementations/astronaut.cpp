@@ -26,8 +26,11 @@ void Astronaut::setAlive(bool value){
 void Astronaut::setFree(bool value){
     free = value;
 }
-void Astronaut::addSpacecraft(Spacecraft &value){
-    spacecrafts.push_back(&value);
+void Astronaut::addSpacecraft(Spacecraft* &value){
+    spacecrafts.push_back(value);
+}
+void Astronaut::removeSpacecraft(Spacecraft* &value){
+    spacecrafts.remove(value);
 }
 
 
