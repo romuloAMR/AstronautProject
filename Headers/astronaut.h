@@ -5,10 +5,7 @@
 #include <string>
 #include <map>
 
-class Spacecraft{
-    public:
-        int getCode();
-};
+class Spacecraft;
 
 class Astronaut{
     private:
@@ -28,8 +25,8 @@ class Astronaut{
         void setAge(int value);
         void setAlive(bool value);
         void setFree(bool value);
-        void addSpacecraft(Spacecraft* &value);
-        void removeSpacecraft(Spacecraft* &value);
+        void addSpacecraft(Spacecraft* &value, int code);
+        void removeSpacecraft(int code);
 
         std::string getCPF();
         std::string getName();

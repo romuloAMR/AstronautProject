@@ -26,11 +26,11 @@ void Astronaut::setAlive(bool value){
 void Astronaut::setFree(bool value){
     free = value;
 }
-void Astronaut::addSpacecraft(Spacecraft* &value){
-    spacecrafts[value->getCode()] = value;
+void Astronaut::addSpacecraft(Spacecraft* &value, int code){
+    spacecrafts[code] = value;
 }
-void Astronaut::removeSpacecraft(Spacecraft* &value){
-    spacecrafts.erase(value->getCode());
+void Astronaut::removeSpacecraft(int code){
+    spacecrafts.erase(code);
 }
 
 
