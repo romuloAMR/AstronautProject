@@ -5,7 +5,7 @@ int Spacecraft::quantity = 0;
 Spacecraft::Spacecraft(){
     setCode(quantity);
     quantity++;
-    setIntact(true);
+    setAvailable(true);
     setWorking(true);
 }
 Spacecraft::~Spacecraft(){}
@@ -14,11 +14,14 @@ Spacecraft::~Spacecraft(){}
 int Spacecraft::getCode() const{
     return code;
 }
+std::map<std::string, Astronaut*> Spacecraft::getAstronauts(){
+    return astronauts;
+}
 bool Spacecraft::astronautExist(std::string cpf){
     return (astronauts.find(cpf) != astronauts.end());
 }
-bool Spacecraft::isIntact(){
-    return intact;
+bool Spacecraft::isAvailable(){
+    return available;
 }
 bool Spacecraft::isWorking(){
     return working;
@@ -34,8 +37,8 @@ void Spacecraft::addAstronaut(Astronaut* &value){
 void Spacecraft::removeAstronaut(Astronaut* &value){
     astronauts.erase(value->getCPF());
 }
-void Spacecraft::setIntact(bool value){
-    intact = value;
+void Spacecraft::setAvailable(bool value){
+    available = value;
 }
 void Spacecraft::setWorking(bool value){
     working = value;
