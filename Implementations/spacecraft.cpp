@@ -14,8 +14,8 @@ Spacecraft::~Spacecraft(){}
 int Spacecraft::getCode() const{
     return code;
 }
-std::map<std::string, Astronaut*> Spacecraft::getAstronauts(){
-    return astronauts;
+std::map<std::string, Astronaut*>* Spacecraft::getAstronauts(){
+    return &astronauts;
 }
 bool Spacecraft::astronautExist(std::string cpf){
     return (astronauts.find(cpf) != astronauts.end());

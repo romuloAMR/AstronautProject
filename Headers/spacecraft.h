@@ -18,7 +18,7 @@ class Spacecraft{
         ~Spacecraft();
 
         int getCode() const;
-        std::map<std::string, Astronaut*> getAstronauts();
+        std::map<std::string, Astronaut*>* getAstronauts();
         bool astronautExist(std::string cpf);
         bool isAvailable();
         bool isWorking();
