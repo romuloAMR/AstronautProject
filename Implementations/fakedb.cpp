@@ -44,8 +44,8 @@ void FakeDB::addAstronautInSpacecraft(){
             Astronaut* a = astronauts[cpf];
             if(a->isFree()){
                 Spacecraft* s = spacecraftsInPlannig[code];
-                if(a->spacecraftExist(s->getCode())){
-                    a->addSpacecraft(s);
+                if(!(a->spacecraftExist(s->getCode()))){
+                    a->addSpacecraft(s, s->getCode());
                     s->addAstronaut(a);
                     std::cout << "Operation Success" << std::endl;
                 } else {
@@ -76,7 +76,7 @@ void FakeDB::removeAstronautInSpacecraft(){
             Spacecraft* s = spacecraftsInPlannig[code];
             if(s->astronautExist(cpf)){
                 Astronaut* a = astronauts[cpf];
-                a->removeSpacecraft(s);
+                a->removeSpacecraft(s->getCode());
                 s->removeAstronaut(a);
                 std::cout << "Operation Success" << std::endl;
             } else {
@@ -89,4 +89,75 @@ void FakeDB::removeAstronautInSpacecraft(){
         std::cout << "Spacecraft isn't in planning or doesn't exist!" << std::endl;
     }
 
+}
+
+//Modify Spacecrafts
+void FakeDB::launchSpacecraft(){
+    int code;
+    std::cout << "Inform a Spacecraft code: ";
+    std::cin >> code;
+    if (spacecraftsInPlannig.find(code) != spacecraftsInPlannig.end()){
+        Spacecraft* s = spacecraftsInPlannig[code];
+        auto tempMap = s->getAstronauts();
+        if(!tempMap->empty()){
+            for (auto iter = tempMap->begin(); iter != tempMap->end(); ++iter) {
+                if (!iter->second->isFree()){
+                    std::cout << "Erro: Astronaut doesn't free!" << std::endl;
+                    return;
+                }
+            }
+            for (auto iter = tempMap->begin(); iter != tempMap->end(); ++iter) {
+                iter->second->setFree(false);
+            }
+            spacecraftsInLauch[code] = s;
+            spacecraftsInPlannig.erase(code);
+            std::cout << "Operation Success" << std::endl;
+        }
+        else {
+            std::cout << "Erro: Spacecraft empty!" << std::endl;
+        }
+    }
+    else {
+        std::cout << "Error: Spacecraft not found!" << std::endl;
+    }
+}
+void FakeDB::destroySpacecraft(){} //fazer
+void FakeDB::finalizeLaunch(){} //fazer
+void FakeDB::reuseSpacecraft(){} //fazer
+
+//List
+template<typename KeyType, typename ValueType>
+void FakeDB::listMap(const std::map<KeyType, ValueType>& list){
+    if(list.empty()){
+        std::cout << "List Empty" << std::endl;
+    } else {
+        for (const auto& pair : list) {
+            std::cout << *pair.second << std::endl;
+        }
+    }
+}
+
+void FakeDB::listPlannedLaunches(){
+    listMap(spacecraftsInPlannig);
+}
+void FakeDB::listLaunches(){
+    listMap(spacecraftsInLauch);
+}
+void FakeDB::listFinalizedLaunches(){
+    std::cout << "Successfully completed:" << std::endl;
+    listMap(returningSpacecrafts);
+    std::cout << "Exploded:" << std::endl;
+    listMap(spacecraftsDestroyed);
+}
+void FakeDB::listAllDeadAstronauts(){
+    if(deadAstronauts.empty()){
+        std::cout << "List Empty" << std::endl;
+    } else {
+        for (const auto& astronaut : deadAstronauts) {
+            std::cout << *astronaut.second << std::endl;
+            for (const auto& spacecrafts : astronaut.second->listSpacecrafts()) {
+                std::cout << spacecrafts.first << std::endl;
+            }
+        }
+    }
 }
