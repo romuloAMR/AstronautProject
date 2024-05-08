@@ -109,6 +109,7 @@ void FakeDB::launchSpacecraft(){
             for (auto iter = tempMap->begin(); iter != tempMap->end(); ++iter) {
                 iter->second->setFree(false);
             }
+            s->setAvailable(false);
             spacecraftsInLauch[code] = s;
             spacecraftsInPlannig.erase(code);
             std::cout << "Operation Success" << std::endl;
@@ -121,9 +122,61 @@ void FakeDB::launchSpacecraft(){
         std::cout << "Error: Spacecraft not found!" << std::endl;
     }
 }
-void FakeDB::destroySpacecraft(){} //fazer
-void FakeDB::finalizeLaunch(){} //fazer
-void FakeDB::reuseSpacecraft(){} //fazer
+void FakeDB::destroySpacecraft(){
+    int code;
+    std::cout << "Inform a Spacecraft code: ";
+    std::cin >> code;
+    if(spacecraftsInLauch.find(code) != spacecraftsInLauch.end()){
+        Spacecraft* s = spacecraftsInLauch[code];
+        auto tempMap = s->getAstronauts();
+        for (auto iter = tempMap->begin(); iter != tempMap->end(); ++iter) {
+                auto a = iter->second;
+                a->setAlive(false);
+                deadAstronauts[a->getCPF()] = a;
+                astronauts.erase(a->getCPF());
+
+            }
+        s->setWorking(false);
+        spacecraftsDestroyed[code] = s;
+        spacecraftsInLauch.erase(code);
+        std::cout << "Spacecraft destroyed!" << std::endl;
+    } else {
+        std::cout << "Error: Spacecraft not found!" << std::endl;
+    }
+}
+void FakeDB::finalizeLaunch(){
+    int code;
+    std::cout << "Inform a Spacecraft code: ";
+    std::cin >> code;
+    if(spacecraftsInLauch.find(code) != spacecraftsInLauch.end()){
+        Spacecraft* s = spacecraftsInLauch[code];
+        auto tempMap = s->getAstronauts();
+        for (auto iter = tempMap->begin(); iter != tempMap->end(); ++iter) {
+                iter->second->setFree(true);
+            }
+        s->setAvailable(true);
+        returningSpacecrafts[code] = s;
+        spacecraftsInLauch.erase(code);
+        std::cout << "Spacecraft returned!" << std::endl;
+    } else {
+        std::cout << "Error: Spacecraft not found!" << std::endl;
+    }
+}
+void FakeDB::reuseSpacecraft(){
+    int code;
+    std::cout << "Inform a Spacecraft code: ";
+    std::cin >> code;
+    if(returningSpacecrafts.find(code) != returningSpacecrafts.end()){
+        auto s = returningSpacecrafts[code];
+        s->setAvailable(true);
+        s->getAstronauts()->clear();
+        spacecraftsInPlannig[code] = s;
+        returningSpacecrafts.erase(code);
+        std::cout << "Reusable Spacecraft!" << std::endl;
+    } else {
+        std::cout << "Error: Spacecraft not found!" << std::endl;
+    }
+}
 
 //List
 template<typename KeyType, typename ValueType>
