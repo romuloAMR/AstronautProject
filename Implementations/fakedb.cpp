@@ -44,7 +44,7 @@ void FakeDB::addAstronautInSpacecraft(){
             Astronaut* a = astronauts[cpf];
             if(a->isFree()){
                 Spacecraft* s = spacecraftsInPlannig[code];
-                if(!(a->spacecraftExist(s->getCode()))){
+                if(!(s->astronautExist(a->getCPF()))){
                     a->addSpacecraft(s, s->getCode());
                     s->addAstronaut(a);
                     std::cout << "Operation Success" << std::endl;
@@ -135,6 +135,13 @@ void FakeDB::destroySpacecraft(){
                 deadAstronauts[a->getCPF()] = a;
                 astronauts.erase(a->getCPF());
 
+                for (auto interr = spacecraftsInPlannig.begin(); interr!= spacecraftsInPlannig.end(); interr++){
+                    auto s2 = interr->second;
+                    if(a->spacecraftExist(s2->getCode())){
+                        s2->removeAstronaut(a);
+                        a->removeSpacecraft(s2->getCode());
+                    }
+                }
             }
         s->setWorking(false);
         spacecraftsDestroyed[code] = s;
@@ -207,10 +214,12 @@ void FakeDB::listAllDeadAstronauts(){
         std::cout << "List Empty" << std::endl;
     } else {
         for (const auto& astronaut : deadAstronauts) {
-            std::cout << *astronaut.second << std::endl;
+            std::cout << *astronaut.second;
+            std::cout << "Astronaut Launches: ";
             for (const auto& spacecrafts : astronaut.second->listSpacecrafts()) {
-                std::cout << spacecrafts.first << std::endl;
+                std::cout << spacecrafts.first << " ";
             }
+            std::cout << std::endl;
         }
     }
 }
